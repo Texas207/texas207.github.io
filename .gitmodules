@@ -1,3 +1,3 @@
 [submodule "butterfly"]
 	path = butterfly
-	url = ./themes/butterfly
+	url = themes/butterfly
