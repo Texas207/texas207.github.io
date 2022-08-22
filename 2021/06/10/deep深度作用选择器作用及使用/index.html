@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>deep深度作用选择器作用及使用 | Texas207 の blog</title><meta name="author" content="Texas207"><meta name="copyright" content="Texas207"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="作用:当你不想写全局样式,想写scoped局部样式不污染全局,又想更改子组件内的样式,此时就可以用&#x2F;deep&#x2F;深度作用选择器.满足你所有想法 官方文档https:&#x2F;&#x2F;vue-loader.vuejs.org&#x2F;zh&#x2F;guide&#x2F;scoped-css.html[或者点我跳转](https:&#x2F;&#x2F;vue-loader.vuejs.org&#x2F;zh&#x2F;guide&#x2F;scoped-css.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deep深度作用选择器作用及使用">
+<meta property="og:url" content="https://texas207.github.io/2021/06/10/deep%E6%B7%B1%E5%BA%A6%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E4%BD%9C%E7%94%A8%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Texas207 の blog">
+<meta property="og:description" content="作用:当你不想写全局样式,想写scoped局部样式不污染全局,又想更改子组件内的样式,此时就可以用&#x2F;deep&#x2F;深度作用选择器.满足你所有想法 官方文档https:&#x2F;&#x2F;vue-loader.vuejs.org&#x2F;zh&#x2F;guide&#x2F;scoped-css.html[或者点我跳转](https:&#x2F;&#x2F;vue-loader.vuejs.org&#x2F;zh&#x2F;guide&#x2F;scoped-css.html">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+<meta property="article:published_time" content="2021-06-09T23:04:35.000Z">
+<meta property="article:modified_time" content="2022-08-22T03:23:45.881Z">
+<meta property="article:author" content="Texas207">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://texas207.github.io/2021/06/10/deep%E6%B7%B1%E5%BA%A6%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E4%BD%9C%E7%94%A8%E5%8F%8A%E4%BD%BF%E7%94%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'deep深度作用选择器作用及使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-08-22 11:23:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img.gejiba.com/images/c8036c9bb887ebfc721e52d7d3643a6e.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Texas207 の blog</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">deep深度作用选择器作用及使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-09T23:04:35.000Z" title="发表于 2021-06-10 07:04:35">2021-06-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-08-22T03:23:45.881Z" title="更新于 2022-08-22 11:23:45">2022-08-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="deep深度作用选择器作用及使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>作用:<br>当你不想写全局样式,想写scoped局部样式不污染全局,又想更改子组件内的样式,此时就可以用&#x2F;deep&#x2F;深度作用选择器.满足你所有想法</strong></p>
+<p>官方文档<br><a target="_blank" rel="noopener" href="https://vue-loader.vuejs.org/zh/guide/scoped-css.html[%E6%88%96%E8%80%85%E7%82%B9%E6%88%91%E8%B7%B3%E8%BD%AC](https://vue-loader.vuejs.org/zh/guide/scoped-css.html)">https://vue-loader.vuejs.org/zh/guide/scoped-css.html[或者点我跳转](https://vue-loader.vuejs.org/zh/guide/scoped-css.html)</a></p>
+<h3 id="一-scoped属性"><a href="#一-scoped属性" class="headerlink" title="一: scoped属性"></a>一: scoped属性</h3><p><strong>1.scoped会给局部区域的非组件元素和组件根元素(不含组件内子元素)增加一个不重复的data属性<br>2.加了scoped后若写样式,会在每句css选择器的末尾（编译后生成的css语句）加一个当前组件(大的.a)的data属性选择器,若多层也是给最后末尾设置</strong></p>
+<p>因给.c设置了.a的属性<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%80%89%E6%8B%A9%E5%99%A8&spm=1001.2101.3001.7020">选择器</a>,然后.c属于子组件内的子元素不会增加.a的属性所以自然获取不到此元素 样式无效</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//.a为大div父组件 .b为子组件根元素 .c为子组件内的子元素</span></span><br><span class="line"> .<span class="property">a</span> .<span class="property">b</span> .<span class="property">c</span>&#123;<span class="comment">//多层</span></span><br><span class="line">    <span class="attr">color</span>:red</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//会渲染成</span></span><br><span class="line">  .<span class="property">a</span> .<span class="property">b</span> .<span class="property">c</span>[data-v-2311c06a]&#123;</span><br><span class="line">    <span class="attr">color</span>:red</span><br><span class="line">  &#125;</span><br><span class="line"><span class="number">12345678</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="二-x2F-deep-x2F-深度作用选择器"><a href="#二-x2F-deep-x2F-深度作用选择器" class="headerlink" title="二: &#x2F;deep&#x2F;深度作用选择器"></a>二: &#x2F;deep&#x2F;<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E6%B7%B1%E5%BA%A6&spm=1001.2101.3001.7020">深度</a>作用选择器</h3><p>当scoped时,#app是父组件 button是子组件内的子元素 [data-v-7ba5bd90]是app的属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//渲染前的源代码 </span></span><br><span class="line">  #app button&#123;</span><br><span class="line">    background-<span class="attr">color</span>: red;</span><br><span class="line">  &#125;</span><br><span class="line">  #app /deep/ button&#123;</span><br><span class="line">    background-<span class="attr">color</span>: yellow;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="number">1234567</span></span><br><span class="line"><span class="comment">//不加/deep/的渲染效果 样式无效</span></span><br><span class="line">#app button[data-v-7ba5bd90] &#123;</span><br><span class="line">	background-<span class="attr">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//加了/deep/的渲染效果 样式有效</span></span><br><span class="line">#app[data-v-7ba5bd90] button &#123;</span><br><span class="line">	background-<span class="attr">color</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">12345678</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>[data-v-7ba5bd90]是app的属性,button是子组件内的子元素并无此属性,所以不加&#x2F;deep&#x2F;样式,获取不到元素,样式无效</li>
+<li>加了&#x2F;deep&#x2F;后 属性选择器跑到前面去了</li>
+</ul>
+<p><strong>1. 若&#x2F;deep&#x2F;后有多层嵌套</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//渲染前</span></span><br><span class="line">  #app /deep/ button&#123;</span><br><span class="line">    background-<span class="attr">color</span>: yellow;</span><br><span class="line">    span&#123;</span><br><span class="line">      <span class="attr">color</span>:blue;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//渲染后 样式有效</span></span><br><span class="line">#app[data-v-7ba5bd90] button span &#123;</span><br><span class="line">	<span class="attr">color</span>: blue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">1234567891011</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 再换种写法 移动&#x2F;deep&#x2F;位置</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//渲染前</span></span><br><span class="line">  #app button&#123;</span><br><span class="line">    <span class="regexp">/deep/</span> span&#123;</span><br><span class="line">      <span class="attr">color</span>:pink;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//渲染后 data-v-7ba5bd90是#app的属性 所以无效</span></span><br><span class="line">#app button[data-v-7ba5bd90] span &#123;</span><br><span class="line">	<span class="attr">color</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">12345678910</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 再换一种 又加个子元素</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//渲染前 </span></span><br><span class="line">  #app button&#123;</span><br><span class="line">    span&#123;</span><br><span class="line">      <span class="regexp">/deep/</span> span&#123;</span><br><span class="line">        <span class="attr">color</span>:pink</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//渲染后</span></span><br><span class="line">#app button span[data-v-7ba5bd90] span &#123;</span><br><span class="line">	<span class="attr">color</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"><span class="number">123456789101112</span></span><br></pre></td></tr></table></figure>
+
+<p>综上可以看出.在哪里加的&#x2F;deep&#x2F; ,data属性选择器就会跑到写的上一层去.</p>
+<p><strong>4. 若写多个&#x2F;deep&#x2F;</strong><br>多个&#x2F;deep&#x2F;的情况下,只有最外层的&#x2F;deep&#x2F;有效,内层的其他&#x2F;deep&#x2F;都是无效的,写了也没意义,不建议写.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//渲染前</span></span><br><span class="line">  #app /deep/ button&#123;</span><br><span class="line">    <span class="regexp">/deep/</span> span&#123;</span><br><span class="line">        <span class="attr">color</span>:yellow</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//打包后的样式显示</span></span><br><span class="line">#app[data-v-7ba5bd90] button /deep/ span &#123;</span><br><span class="line">	<span class="attr">color</span>: yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Texas207</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://texas207.github.io/2021/06/10/deep%E6%B7%B1%E5%BA%A6%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E4%BD%9C%E7%94%A8%E5%8F%8A%E4%BD%BF%E7%94%A8/">https://texas207.github.io/2021/06/10/deep%E6%B7%B1%E5%BA%A6%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8%E4%BD%9C%E7%94%A8%E5%8F%8A%E4%BD%BF%E7%94%A8/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://texas207.github.io" target="_blank">Texas207 の blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/06/23/Vue%E9%85%8D%E7%BD%AE%E4%BB%A3%E7%90%86/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Vue配置代理</div></div></a></div><div class="next-post pull-right"><a href="/2021/05/25/Vuex%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vuex入门教程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img.gejiba.com/images/c8036c9bb887ebfc721e52d7d3643a6e.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Texas207</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">37</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Texas207"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">！注意：如果图片加载不出来 清理一下浏览器缓存再刷新就好了</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-scoped%E5%B1%9E%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text">一: scoped属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-x2F-deep-x2F-%E6%B7%B1%E5%BA%A6%E4%BD%9C%E7%94%A8%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">二: &#x2F;deep&#x2F;深度作用选择器</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/07/01/Git-flow%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" title="Git-flow工作流程简介"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git-flow工作流程简介"/></a><div class="content"><a class="title" href="/2022/07/01/Git-flow%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E7%AE%80%E4%BB%8B/" title="Git-flow工作流程简介">Git-flow工作流程简介</a><time datetime="2022-06-30T23:04:35.000Z" title="发表于 2022-07-01 07:04:35">2022-07-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/18/Vue%E4%B8%AD%E7%9A%84slot%E8%AF%A6%E8%A7%A3/" title="Vue中的slot详解"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue中的slot详解"/></a><div class="content"><a class="title" href="/2022/06/18/Vue%E4%B8%AD%E7%9A%84slot%E8%AF%A6%E8%A7%A3/" title="Vue中的slot详解">Vue中的slot详解</a><time datetime="2022-06-17T23:04:35.000Z" title="发表于 2022-06-18 07:04:35">2022-06-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/07/echarts%E5%85%A5%E9%97%A8/" title="echarts入门"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="echarts入门"/></a><div class="content"><a class="title" href="/2022/06/07/echarts%E5%85%A5%E9%97%A8/" title="echarts入门">echarts入门</a><time datetime="2022-06-06T23:04:35.000Z" title="发表于 2022-06-07 07:04:35">2022-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/25/Vue%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/" title="Vue实现动态路由"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue实现动态路由"/></a><div class="content"><a class="title" href="/2022/05/25/Vue%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1/" title="Vue实现动态路由">Vue实现动态路由</a><time datetime="2022-05-24T23:04:35.000Z" title="发表于 2022-05-25 07:04:35">2022-05-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/14/http-https%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81/" title="http/https请求响应状态码大全"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="http/https请求响应状态码大全"/></a><div class="content"><a class="title" href="/2022/05/14/http-https%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81/" title="http/https请求响应状态码大全">http/https请求响应状态码大全</a><time datetime="2022-05-13T23:04:35.000Z" title="发表于 2022-05-14 07:04:35">2022-05-14</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Texas207</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
